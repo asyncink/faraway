@@ -1,6 +1,6 @@
 export enum Urls {
   HOME = '/',
-  CHARACTER = '/character'
+  CHARACTER = '/c'
 }
 
 export const getCharacterUrl = (id: string) => `${Urls.CHARACTER}/${id}`

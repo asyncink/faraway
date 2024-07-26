@@ -61,10 +61,9 @@ export class CharacterStore {
     }
 
     this.isFetching = true
-    this.page += 1
 
     const { data, error } = await fetchSwapi<SwapiResponse>(
-      `/people?page=${this.page}`
+      `/people?page=${this.page + 1}`
     )
 
     if (error || !data) {
@@ -81,12 +80,15 @@ export class CharacterStore {
       )
     )
     this.isFetching = false
+    this.page += 1
   }
 
   public fetchById = async (id: string) => {
     if (this.characters.has(id)) {
       return
     }
+
+    this.isFetching = true
 
     const { data, error } = await fetchSwapi<SwapiCharacter>(`/people/${id}`)
 
@@ -95,17 +97,24 @@ export class CharacterStore {
     }
 
     this.characters.set(getSwapiId(data.url), new CharacterModel(data))
+    this.isFetching = false
   }
 
   public getById = (id: string) => {
     return this.characters.get(id)
   }
 
-  public get isFullyFetched() {
-    return this.characters.size >= this.count && this.page !== 0
+  public get items() {
+    return Array.from(this.characters.values()).sort(
+      (characterA, characterB) => Number(characterA.id) - Number(characterB.id)
+    )
   }
 
-  public get items() {
-    return Array.from(this.characters.values())
+  public get isFullyFetched() {
+    return this.characters.size >= this.count && this.isInitiallyFetched
+  }
+
+  public get isInitiallyFetched() {
+    return this.page > 0
   }
 }
