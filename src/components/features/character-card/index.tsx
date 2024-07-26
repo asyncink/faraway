@@ -1,19 +1,36 @@
 import React from 'react'
 
 import type { CharacterModel } from 'lib/store/character'
+import type { PlanetModel } from 'lib/store/planet'
+import type { FilmModel } from 'lib/store/film'
+
 import { getCharacterUrl } from 'lib/urls'
 import { formatDate } from 'lib/intl'
 
-import { Badge, Divider, Group, Paper, Text, Title, List } from '@mantine/core'
+import {
+  Badge,
+  Divider,
+  Group,
+  Paper,
+  Text,
+  Title,
+  List,
+  Loader
+} from '@mantine/core'
 import { default as Link } from 'next/link'
+import { FilmList } from 'features/film-list'
 
 interface CharacterCardProps {
   character: CharacterModel
   displayType: 'compact' | 'full'
+  homeworld?: PlanetModel
+  films?: FilmModel[]
 }
 
 export const CharacterCard: React.FC<CharacterCardProps> = ({
   character,
+  homeworld,
+  films,
   displayType
 }) => {
   const isCompact = displayType === 'compact'
@@ -36,7 +53,11 @@ export const CharacterCard: React.FC<CharacterCardProps> = ({
 
           <Divider my="md" label="Common" labelPosition="left" />
           <Group justify="space-between">
-            <Text size="sm">Homeworld: {character.homeworld}</Text>
+            <Text size="sm">
+              <Group align="center">
+                Homeworld: {homeworld?.name || <Loader size="xs" type="dots" />}
+              </Group>
+            </Text>
             <Text size="sm">Gender: {character.gender}</Text>
           </Group>
 
@@ -48,11 +69,8 @@ export const CharacterCard: React.FC<CharacterCardProps> = ({
           </Group>
 
           <Divider mt="md" mb="xs" label="Films" labelPosition="left" />
-          <List size="sm" pl="sm" icon={'-'}>
-            {character.films.map(film => (
-              <List.Item key={film}>{film}</List.Item>
-            ))}
-          </List>
+          <FilmList films={films} />
+          <List size="sm" pl="sm" icon={'-'}></List>
 
           <Divider mt="md" mb="xs" label="Updates" labelPosition="left" />
         </>

@@ -4,43 +4,6 @@ import { fetchSwapi, getSwapiId } from 'lib/swapi'
 import type { SwapiResponse, SwapiCharacter } from 'types/domain'
 import type { RootStore } from '.'
 
-export class CharacterModel {
-  public readonly id: string
-  public readonly url: string
-  public readonly created: Date
-
-  public name: string
-  public height: string
-  public mass: string
-  public hairColor: string
-  public skinColor: string
-  public eyeColor: string
-  public birthYear: string
-  public gender: string
-  public homeworld: string
-  public films: string[]
-  public edited: Date
-
-  constructor(data: SwapiCharacter) {
-    this.name = data.name
-    this.height = data.height
-    this.mass = data.mass
-    this.hairColor = data.hair_color
-    this.skinColor = data.skin_color
-    this.eyeColor = data.eye_color
-    this.birthYear = data.birth_year
-    this.gender = data.gender
-    this.homeworld = data.homeworld
-    this.films = data.films
-    this.created = new Date(data.created)
-    this.edited = new Date(data.edited)
-    this.url = data.url
-    this.id = getSwapiId(data.url)
-  }
-
-  update = () => {}
-}
-
 export class CharacterStore {
   private readonly rootStore: RootStore
   public isFetching: boolean = false
@@ -76,7 +39,7 @@ export class CharacterStore {
     results.forEach(character =>
       this.characters.set(
         getSwapiId(character.url),
-        new CharacterModel(character)
+        new CharacterModel(character, this.rootStore)
       )
     )
     this.isFetching = false
@@ -96,7 +59,10 @@ export class CharacterStore {
       return
     }
 
-    this.characters.set(getSwapiId(data.url), new CharacterModel(data))
+    this.characters.set(
+      getSwapiId(data.url),
+      new CharacterModel(data, this.rootStore)
+    )
     this.isFetching = false
   }
 
@@ -117,4 +83,48 @@ export class CharacterStore {
   public get isInitiallyFetched() {
     return this.page > 0
   }
+}
+
+export class CharacterModel {
+  private readonly rootStore: RootStore
+
+  public readonly id: string
+  public readonly url: string
+  public readonly created: Date
+
+  public name: string
+  public height: string
+  public mass: string
+  public hairColor: string
+  public skinColor: string
+  public eyeColor: string
+  public birthYear: string
+  public gender: string
+  public homeworldId: string
+  public filmIds: string[]
+  public edited: Date
+
+  constructor(data: SwapiCharacter, rootStore: RootStore) {
+    this.rootStore = rootStore
+    this.name = data.name
+    this.height = data.height
+    this.mass = data.mass
+    this.hairColor = data.hair_color
+    this.skinColor = data.skin_color
+    this.eyeColor = data.eye_color
+    this.birthYear = data.birth_year
+    this.gender = data.gender
+    this.homeworldId = getSwapiId(data.homeworld)
+    this.filmIds = data.films.map(url => getSwapiId(url))
+    this.created = new Date(data.created)
+    this.edited = new Date(data.edited)
+    this.url = data.url
+    this.id = getSwapiId(data.url)
+  }
+
+  fetchFilms = async () =>
+    Promise.all(this.filmIds.map(id => this.rootStore.filmStore.fetchById(id)))
+
+  fetchHomeworld = async () =>
+    this.rootStore.planetStore.fetchById(this.homeworldId)
 }

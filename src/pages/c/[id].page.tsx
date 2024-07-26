@@ -7,9 +7,10 @@ import { useRouter } from 'next/router'
 import { Meta } from 'design-system/meta'
 import { Group, Loader } from '@mantine/core'
 import { CharacterCard } from 'features/character-card'
+import type { FilmModel } from 'lib/store/film'
 
 export const Page: React.FC = () => {
-  const { characterStore } = useRootStore()
+  const { characterStore, planetStore, filmStore } = useRootStore()
   const { query } = useRouter()
 
   const character = useMemo(
@@ -25,13 +26,34 @@ export const Page: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query.id])
 
+  useEffect(() => {
+    if (character) {
+      Promise.all([character.fetchFilms(), character.fetchHomeworld()])
+    }
+  }, [character])
+
   return (
     <>
       <Meta title={character?.name || 'Loading character...'} />
 
       <Group justify="center">
         {character ? (
-          <CharacterCard character={character} displayType="full" />
+          <CharacterCard
+            displayType="full"
+            character={character}
+            homeworld={
+              planetStore.isFetching
+                ? undefined
+                : planetStore.getById(character.homeworldId)
+            }
+            films={
+              filmStore.isFetching
+                ? undefined
+                : (character.filmIds
+                    .map(id => filmStore.getById(id))
+                    .filter(Boolean) as FilmModel[])
+            }
+          />
         ) : (
           <Loader mt="xl" />
         )}
