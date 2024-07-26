@@ -10,6 +10,8 @@
 - Dark and light themes
 - Mobile and desktop screens
 
+App is deployed on https://faraway-zeta.vercel.app. The code was written in 5 hours, so there are several potential refactorings and features that could be added. Please keep this in mind.
+
 ### Tech Stack
 
 - TypeScript
