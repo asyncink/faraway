@@ -6,6 +6,7 @@ import { useRootStore } from 'lib/store'
 import { Meta } from 'design-system/meta'
 import { Badge, Button, Group } from '@mantine/core'
 import { CharacterCard } from 'features/character-card'
+import { AnimateGroup } from 'react-animate-mount'
 
 export const Page: React.FC = () => {
   const { characterStore } = useRootStore()
@@ -24,13 +25,15 @@ export const Page: React.FC = () => {
       {characterStore.isInitiallyFetched && (
         <>
           <Group justify="center">
-            {characterStore.items.map(character => (
-              <CharacterCard
-                character={character}
-                key={character.id}
-                displayType="compact"
-              />
-            ))}
+            <AnimateGroup appear>
+              {characterStore.items.map(character => (
+                <CharacterCard
+                  character={character}
+                  key={character.id}
+                  displayType="compact"
+                />
+              ))}
+            </AnimateGroup>
           </Group>
 
           <Group justify="center" mt="sm">

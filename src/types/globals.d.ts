@@ -19,3 +19,5 @@ declare module '*.svg' {
   const SvgIcon: FC<SVGProps<SVGElement>>
   export default SvgIcon
 }
+
+declare module 'react-animate-mount'
