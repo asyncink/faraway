@@ -1,0 +1,50 @@
+# dependencies
+/node_modules
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+/dist/
+
+# production build
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# env files
+.env
+.env.*
+
+# editors
+.idea
+.vscode
+
+# vercel
+.vercel
+
+# auto generated files in public dir
+public/sitemap.xml
+public/sitemap-*.xml
+public/robots.txt
+
+# storybook build
+storybook-static
+
+# typescript
+tsconfig.tsbuildinfo
+
+# npm
+.npmrc
+
+# sentry
+.sentryclirc
