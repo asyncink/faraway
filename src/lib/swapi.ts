@@ -17,6 +17,10 @@ export const fetchSwapi = async <Result>(
       }
     })
 
+    if (response.status !== 200) {
+      throw new Error()
+    }
+
     const data = await response?.json()
 
     return { data, error: null }
