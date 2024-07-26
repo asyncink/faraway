@@ -3,7 +3,7 @@ import React from 'react'
 import { useIsMounted } from 'lib/use-is-mounted'
 import { ExternalUrls, Urls } from 'lib/urls'
 
-import { AppShell, Group, Kbd, Space, Stack } from '@mantine/core'
+import { AppShell, Group, Space, Stack } from '@mantine/core'
 import { ThemeSwitcher } from 'design-system/theme-switcher'
 import { GitHubIcon, StarWarsIcon } from 'design-system/icons'
 import { default as Link } from 'next/link'
@@ -34,10 +34,6 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
         <Link href={Urls.HOME} className={styles.logo}>
           <StarWarsIcon />
         </Link>
-
-        <div>
-          <Kbd>Ctrl</Kbd> + <Kbd>Shift</Kbd> + <Kbd>S</Kbd>
-        </div>
       </AppShell.Header>
 
       <AppShell.Main

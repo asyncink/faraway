@@ -1,5 +1,7 @@
 import React from 'react'
 
+import { useIsMounted } from 'lib/use-is-mounted'
+
 import {
   Switch,
   useMantineTheme,
@@ -7,7 +9,6 @@ import {
   useComputedColorScheme
 } from '@mantine/core'
 import { MoonIcon, SunIcon } from 'design-system/icons'
-import { useIsMounted } from 'lib/use-is-mounted'
 
 export const ThemeSwitcher: React.FC = () => {
   const { isMounted } = useIsMounted()

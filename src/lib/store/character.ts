@@ -1,5 +1,6 @@
 import { makeAutoObservable } from 'mobx'
 import { fetchSwapi, getSwapiId } from 'lib/swapi'
+import * as idb from 'lib/indexed-db'
 
 import type { SwapiResponse, SwapiCharacter } from 'types/domain'
 import type { RootStore } from '.'
@@ -36,12 +37,17 @@ export class CharacterStore {
     const { results, count } = data
 
     this.count = count
-    results.forEach(character =>
+    results.forEach(async character => {
+      const id = getSwapiId(character.url)
+      const idbCharacter = await idb.get(id)
+
       this.characters.set(
-        getSwapiId(character.url),
-        new CharacterModel(character, this.rootStore)
+        id,
+        new CharacterModel(idbCharacter || character, this.rootStore)
       )
-    )
+
+      idb.set(id, idbCharacter || character)
+    })
     this.isFetching = false
     this.page += 1
   }
@@ -53,17 +59,23 @@ export class CharacterStore {
 
     this.isFetching = true
 
-    const { data, error } = await fetchSwapi<SwapiCharacter>(`/people/${id}`)
+    const { data: character, error } = await fetchSwapi<SwapiCharacter>(
+      `/people/${id}`
+    )
 
-    if (error || !data) {
+    if (error || !character) {
       return
     }
 
+    const idbCharacter = await idb.get(id)
+
     this.characters.set(
-      getSwapiId(data.url),
-      new CharacterModel(data, this.rootStore)
+      id,
+      new CharacterModel(idbCharacter || character, this.rootStore)
     )
     this.isFetching = false
+
+    idb.set(id, idbCharacter || character)
   }
 
   public getById = (id: string) => {
@@ -105,6 +117,8 @@ export class CharacterModel {
   public edited: Date
 
   constructor(data: SwapiCharacter, rootStore: RootStore) {
+    this.id = getSwapiId(data.url)
+
     this.rootStore = rootStore
     this.name = data.name
     this.height = data.height
@@ -119,7 +133,8 @@ export class CharacterModel {
     this.created = new Date(data.created)
     this.edited = new Date(data.edited)
     this.url = data.url
-    this.id = getSwapiId(data.url)
+
+    makeAutoObservable(this, {}, { autoBind: true })
   }
 
   fetchFilms = async () =>
@@ -127,4 +142,21 @@ export class CharacterModel {
 
   fetchHomeworld = async () =>
     this.rootStore.planetStore.fetchById(this.homeworldId)
+
+  updateName = async (name: string) => {
+    const idbCharacter: SwapiCharacter | undefined = await idb.get(this.id)
+
+    if (!idbCharacter) {
+      return
+    }
+
+    const now = new Date()
+
+    idbCharacter.name = name
+    idbCharacter.edited = now.toISOString()
+    idb.set(this.id, idbCharacter)
+
+    this.name = name
+    this.edited = now
+  }
 }

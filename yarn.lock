@@ -1509,6 +1509,11 @@
   resolved "https://registry.yarnpkg.com/@mantine/hooks/-/hooks-7.7.1.tgz#04fd8999fe109615d064bf42a8ff04435c93b927"
   integrity sha512-3YH2FzKMlg840tb04PBDcDXyBCi9puFOxEBVgc6Y/pN6KFqfOoAnQE/YvgOtwSNXZlbTWyDlQoYj+3je7pA7og==
 
+"@mantine/modals@^7.11.2":
+  version "7.11.2"
+  resolved "https://registry.yarnpkg.com/@mantine/modals/-/modals-7.11.2.tgz#ff09236ef6fc09a2c243e45fa8073ff9ea85b40b"
+  integrity sha512-AsVyGP5+F9jkQdQ9J0qzaK8q7n9bPcpswAjScpzIgEfUBC4RCvf63bmh9Yp1OEgxl1xkNdzGUYGVau0SQqHasA==
+
 "@mantine/spotlight@^7.11.2":
   version "7.11.2"
   resolved "https://registry.yarnpkg.com/@mantine/spotlight/-/spotlight-7.11.2.tgz#b50e44cdc151c2a2ec2199dbc4e82907717c4111"
@@ -3526,6 +3531,11 @@ husky@^9.0.11:
   version "9.0.11"
   resolved "https://registry.yarnpkg.com/husky/-/husky-9.0.11.tgz#fc91df4c756050de41b3e478b2158b87c1e79af9"
   integrity sha512-AB6lFlbwwyIqMdHYhwPe+kjOC3Oc5P3nThEoW/AaO2BX3vJDjWPFxYLxokUZOo6RNX20He3AaT8sESs9NJcmEw==
+
+idb-keyval@^6.2.1:
+  version "6.2.1"
+  resolved "https://registry.yarnpkg.com/idb-keyval/-/idb-keyval-6.2.1.tgz#94516d625346d16f56f3b33855da11bfded2db33"
+  integrity sha512-8Sb3veuYCyrZL+VBt9LJfZjLUPWVvqn8tG28VqYNFCo43KHcKuq+b4EiXGeuaLAQWL2YmyDgMp2aSpH9JHsEQg==
 
 identity-obj-proxy@^3.0.0:
   version "3.0.0"

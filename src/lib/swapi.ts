@@ -16,25 +16,18 @@ export const fetchSwapi = async <Result>(
         'Content-Type': 'application/json'
       }
     })
-  } catch {}
 
-  let data = null
+    const data = await response?.json()
 
-  try {
-    const json = await response?.json()
-
-    data = json ?? null
-  } catch {}
-
-  let error = null
-
-  if (response?.status !== 200) {
-    error = new Error(
-      `Swapi failed with ${response?.status || 'unknown'} code on endpoint ${endpoint}`
-    )
+    return { data, error: null }
+  } catch {
+    return {
+      data: null,
+      error: new Error(
+        `Swapi failed with ${response?.status || 'unknown'} code on endpoint ${endpoint}`
+      )
+    }
   }
-
-  return { data, error }
 }
 
 export const getSwapiId = (url: string) => {

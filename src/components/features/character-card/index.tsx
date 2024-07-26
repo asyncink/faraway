@@ -6,6 +6,8 @@ import type { FilmModel } from 'lib/store/film'
 
 import { getCharacterUrl } from 'lib/urls'
 import { formatDate } from 'lib/intl'
+import { modals } from '@mantine/modals'
+import { ModalKey } from 'lib/modals'
 
 import {
   Badge,
@@ -15,10 +17,12 @@ import {
   Text,
   Title,
   List,
-  Loader
+  Loader,
+  ActionIcon
 } from '@mantine/core'
 import { default as Link } from 'next/link'
 import { FilmList } from 'features/film-list'
+import { EditIcon } from 'design-system/icons'
 
 interface CharacterCardProps {
   character: CharacterModel
@@ -35,12 +39,25 @@ export const CharacterCard: React.FC<CharacterCardProps> = ({
 }) => {
   const isCompact = displayType === 'compact'
 
+  const openNameModal = () => {
+    modals.openContextModal({
+      modal: ModalKey.NAME,
+      title: 'Edit name',
+      innerProps: { character }
+    })
+  }
+
   return (
     <Paper shadow="xs" p={isCompact ? 'sm' : 'md'} w={isCompact ? 260 : 320}>
       {isCompact ? (
         <Link href={getCharacterUrl(character.id)}>{character.name}</Link>
       ) : (
-        <Title order={3}>{character.name}</Title>
+        <Group justify="space-between" align="center">
+          <Title order={3}>{character.name}</Title>
+          <ActionIcon variant="light" onClick={openNameModal}>
+            <EditIcon size={16} />
+          </ActionIcon>
+        </Group>
       )}
 
       {!isCompact && (
