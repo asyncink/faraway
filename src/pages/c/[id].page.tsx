@@ -4,9 +4,9 @@ import { observer } from 'mobx-react-lite'
 import { useRootStore } from 'lib/store'
 import { useRouter } from 'next/router'
 
-import { Meta } from 'design-system/meta'
+import { Meta } from 'components/meta'
 import { Group, Loader } from '@mantine/core'
-import { CharacterCard } from 'features/character-card'
+import { CharacterCard } from 'components/character-card'
 import type { FilmModel } from 'lib/store/film'
 
 export const Page: React.FC = () => {

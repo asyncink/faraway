@@ -21,8 +21,8 @@ import {
   ActionIcon
 } from '@mantine/core'
 import { default as Link } from 'next/link'
-import { FilmList } from 'features/film-list'
-import { EditIcon } from 'design-system/icons'
+import { FilmList } from 'components/film-list'
+import { EditIcon } from 'components/icons'
 
 interface CharacterCardProps {
   character: CharacterModel

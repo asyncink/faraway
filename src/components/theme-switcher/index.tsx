@@ -8,7 +8,7 @@ import {
   useMantineColorScheme,
   useComputedColorScheme
 } from '@mantine/core'
-import { MoonIcon, SunIcon } from 'design-system/icons'
+import { MoonIcon, SunIcon } from 'components/icons'
 
 export const ThemeSwitcher: React.FC = () => {
   const { isMounted } = useIsMounted()

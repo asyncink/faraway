@@ -1,5 +1,5 @@
 import { makeAutoObservable } from 'mobx'
-import { fetchSwapi, getSwapiId } from 'lib/swapi'
+import { fetchSwapi, getSwapiId, SwapiEndpoints } from 'lib/swapi'
 import * as idb from 'lib/indexed-db'
 
 import type { SwapiResponse, SwapiCharacter } from 'types/domain'
@@ -27,7 +27,7 @@ export class CharacterStore {
     this.isFetching = true
 
     const { data, error } = await fetchSwapi<SwapiResponse>(
-      `/people?page=${this.page + 1}`
+      `${SwapiEndpoints.PEOPLE_BY_PAGE}${this.page + 1}`
     )
 
     if (error || !data) {
@@ -36,20 +36,17 @@ export class CharacterStore {
 
     const { results, count } = data
 
-    this.count = count
-    results.forEach(async character => {
-      const id = getSwapiId(character.url)
+    results.forEach(async fetchedCharacter => {
+      const id = getSwapiId(fetchedCharacter.url)
       const idbCharacter = await idb.get(id)
+      const character = idbCharacter || fetchedCharacter
 
-      this.characters.set(
-        id,
-        new CharacterModel(idbCharacter || character, this.rootStore)
-      )
-
-      idb.set(id, idbCharacter || character)
+      this.characters.set(id, new CharacterModel(character, this.rootStore))
+      idb.set(id, character)
     })
-    this.isFetching = false
+    this.count = count
     this.page += 1
+    this.isFetching = false
   }
 
   public fetchById = async (id: string) => {
@@ -59,23 +56,20 @@ export class CharacterStore {
 
     this.isFetching = true
 
-    const { data: character, error } = await fetchSwapi<SwapiCharacter>(
-      `/people/${id}`
+    const { data: fetchedCharacter, error } = await fetchSwapi<SwapiCharacter>(
+      `${SwapiEndpoints.PEOPLE}${id}`
     )
 
-    if (error || !character) {
+    if (error || !fetchedCharacter) {
       return
     }
 
     const idbCharacter = await idb.get(id)
+    const character = idbCharacter || fetchedCharacter
 
-    this.characters.set(
-      id,
-      new CharacterModel(idbCharacter || character, this.rootStore)
-    )
+    this.characters.set(id, new CharacterModel(character, this.rootStore))
+    idb.set(id, character)
     this.isFetching = false
-
-    idb.set(id, idbCharacter || character)
   }
 
   public getById = (id: string) => {

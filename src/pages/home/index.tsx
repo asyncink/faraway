@@ -3,10 +3,12 @@ import { observer } from 'mobx-react-lite'
 
 import { useRootStore } from 'lib/store'
 
-import { Meta } from 'design-system/meta'
+import { Meta } from 'components/meta'
 import { Badge, Button, Group } from '@mantine/core'
-import { CharacterCard } from 'features/character-card'
+import { CharacterCard } from 'components/character-card'
 import { AnimateGroup } from 'react-animate-mount'
+
+import styles from './styles.module.css'
 
 export const Page: React.FC = () => {
   const { characterStore } = useRootStore()
@@ -24,7 +26,7 @@ export const Page: React.FC = () => {
 
       {characterStore.isInitiallyFetched && (
         <>
-          <Group justify="center">
+          <Group justify="center" className={styles.group}>
             <AnimateGroup appear>
               {characterStore.items.map(character => (
                 <CharacterCard

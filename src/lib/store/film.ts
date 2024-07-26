@@ -1,5 +1,5 @@
 import { makeAutoObservable } from 'mobx'
-import { fetchSwapi, getSwapiId } from 'lib/swapi'
+import { fetchSwapi, getSwapiId, SwapiEndpoints } from 'lib/swapi'
 import { wait } from 'lib/wait'
 
 import type { SwapiFilm } from 'types/domain'
@@ -25,7 +25,7 @@ export class FilmStore {
     this.isFetching = true
 
     const [{ data, error }] = await Promise.all([
-      fetchSwapi<SwapiFilm>(`/films/${id}`),
+      fetchSwapi<SwapiFilm>(`${SwapiEndpoints.FILMS}${id}`),
       wait(500)
     ])
 

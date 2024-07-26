@@ -4,8 +4,8 @@ import { useIsMounted } from 'lib/use-is-mounted'
 import { ExternalUrls, Urls } from 'lib/urls'
 
 import { AppShell, Group, Space, Stack } from '@mantine/core'
-import { ThemeSwitcher } from 'design-system/theme-switcher'
-import { GitHubIcon, StarWarsIcon } from 'design-system/icons'
+import { ThemeSwitcher } from 'components/theme-switcher'
+import { GitHubIcon, StarWarsIcon } from 'components/icons'
 import { default as Link } from 'next/link'
 
 import styles from './styles.module.css'

@@ -3,10 +3,6 @@
     "target": "es2020",
     "lib": ["dom", "dom.iterable", "esnext"],
     "baseUrl": "src",
-    "paths": {
-      "design-system/*": ["components/design-system/*"],
-      "features/*": ["components/features/*"]
-    },
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,

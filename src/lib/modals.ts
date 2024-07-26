@@ -1,4 +1,4 @@
-import { NameModal } from 'features/name-modal'
+import { NameModal } from 'components/name-modal'
 
 export const enum ModalKey {
   NAME = 'name'

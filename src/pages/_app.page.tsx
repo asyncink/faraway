@@ -7,7 +7,7 @@ import { MODALS } from 'lib/modals'
 
 import { MantineProvider } from '@mantine/core'
 import { ModalsProvider } from '@mantine/modals'
-import { Layout } from 'design-system/layout'
+import { Layout } from 'components/layout'
 
 const App: React.FC<AppProps> = ({ Component, pageProps }) => {
   return (

@@ -39,3 +39,10 @@ export const getSwapiId = (url: string) => {
 
   return parts[parts.length - 2]
 }
+
+export const enum SwapiEndpoints {
+  PEOPLE_BY_PAGE = '/people?page=',
+  PEOPLE = '/people/',
+  FILMS = '/films/',
+  PLANETS = '/planets/'
+}
