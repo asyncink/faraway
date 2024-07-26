@@ -2,13 +2,14 @@
 
 ### Features
 
-- List all Star Wars characters with a short summary.
-- View full information about a specific character on its page.
-- Edit the name of a character locally.
-- Ensure all changes are consistent between the client and API (data refetch will preserve local names) via Indexed DB.
-- Avoid redundant fetches — all data is stored in Mobx, and fetches won't be triggered if the data has been previously fetched.
-- Dark and light themes
-- Mobile and desktop screens
+- List all Star Wars characters with a short summary
+- View full information about a specific character on its page
+- Edit the name of a character locally
+- All changes are consistent between the client and API via Indexed DB
+- Data refetches will preserve local names
+- No redundant fetches if the data has been previously fetched
+- Dark and light color scheme
+- Support for mobile and desktop screens
 
 App is deployed on https://faraway-zeta.vercel.app. The code was written in 5 hours, so there are several potential refactorings and features that could be added. Please keep this in mind.
 
@@ -16,19 +17,20 @@ App is deployed on https://faraway-zeta.vercel.app. The code was written in 5 ho
 
 - TypeScript
 - React — core library
-- Next.js — core framework
-- Mobx — state manager
+- Next — core framework
+- MobX — state management
+- Indexed DB — persistent client storage
 - Mantine — components
 - Feather — icons
 
 ### Tooling and conventions
 
-- Conventional Commits
 - PostCSS and CSS-modules
 - ESLint
 - Stylelint
 - Prettier
 - Yarn
+- Conventional Commits
 
 ### Commands
 
