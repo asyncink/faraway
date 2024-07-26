@@ -1,4 +1,4 @@
-const API_ORIGIN = 'https://swapi.dev/api/'
+const API_ORIGIN = 'https://swapi.dev/api'
 
 export const fetchSwapi = async <Result>(
   endpoint: string

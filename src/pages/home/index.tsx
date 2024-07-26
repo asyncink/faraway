@@ -12,7 +12,7 @@ export const Page: React.FC = () => {
 
   useEffect(() => {
     if (!characterStore.isInitiallyFetched) {
-      characterStore.fetch()
+      characterStore.fetchNextPage()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -43,7 +43,7 @@ export const Page: React.FC = () => {
             ) : (
               <Button
                 variant="outline"
-                onClick={characterStore.fetch}
+                onClick={characterStore.fetchNextPage}
                 loading={characterStore.isFetching}>
                 Fetch more
               </Button>

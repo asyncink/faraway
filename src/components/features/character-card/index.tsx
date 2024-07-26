@@ -48,7 +48,10 @@ export const CharacterCard: React.FC<CharacterCardProps> = ({
   }
 
   return (
-    <Paper shadow="xs" p={isCompact ? 'sm' : 'md'} w={isCompact ? 260 : 320}>
+    <Paper
+      shadow="xs"
+      p={isCompact ? 'sm' : 'md'}
+      w={{ base: '100%', md: isCompact ? 260 : 320 }}>
       {isCompact ? (
         <Link href={getCharacterUrl(character.id)}>{character.name}</Link>
       ) : (

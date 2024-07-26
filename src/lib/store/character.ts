@@ -19,7 +19,7 @@ export class CharacterStore {
     makeAutoObservable(this, {}, { autoBind: true })
   }
 
-  public fetch = async () => {
+  public fetchNextPage = async () => {
     if (this.isFullyFetched) {
       return
     }

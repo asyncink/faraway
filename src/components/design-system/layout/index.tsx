@@ -53,6 +53,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
           </Link>
           <ThemeSwitcher />
         </Group>
+        <Space h="lg" />
       </AppShell.Main>
     </AppShell>
   )

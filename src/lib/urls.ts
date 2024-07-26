@@ -6,5 +6,5 @@ export enum Urls {
 export const getCharacterUrl = (id: string) => `${Urls.CHARACTER}/${id}`
 
 export enum ExternalUrls {
-  GITHUB_REPO = ''
+  GITHUB_REPO = 'https://github.com/asyncink/faraway'
 }
