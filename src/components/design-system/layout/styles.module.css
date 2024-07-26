@@ -1,32 +1,34 @@
 .header {
   background: linear-gradient(
     to bottom,
-    light-dark(var(--mantine-color-gray-1), var(--mantine-color-dark-6)) 30%,
+    light-dark(var(--mantine-color-gray-1), var(--mantine-color-dark-6)) 0%,
     transparent 100%
   );
+  margin-bottom: 32px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   z-index: 101;
-  position: absolute;
+  overflow: hidden;
 }
 
 .logo {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 152px;
+  width: 108px;
   padding: 8px;
   margin-top: 12px;
-  border-radius: var(--mantine-radius-xl);
-  backdrop-filter: blur(6px);
-  color: var(--mantine-color-text);
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
 
   & svg {
     width: 100%;
+    fill: var(--mantine-color-text);
+  }
+}
+
+.github {
+  & svg {
+    width: 32px;
+    fill: var(--mantine-color-text);
   }
 }

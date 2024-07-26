@@ -1,12 +1,11 @@
 import React from 'react'
 
 import { useIsMounted } from 'lib/use-is-mounted'
-import { Urls } from 'lib/urls'
+import { ExternalUrls, Urls } from 'lib/urls'
 
-import { AppShell, Kbd, Space, Stack } from '@mantine/core'
+import { AppShell, Group, Kbd, Space, Stack } from '@mantine/core'
 import { ThemeSwitcher } from 'design-system/theme-switcher'
-
-import { LogoIcon } from 'design-system/icons'
+import { GitHubIcon, StarWarsIcon } from 'design-system/icons'
 import { default as Link } from 'next/link'
 
 import styles from './styles.module.css'
@@ -33,10 +32,8 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
       withBorder={false}>
       <AppShell.Header px={{ base: 'md', md: 'xl' }} className={styles.header}>
         <Link href={Urls.HOME} className={styles.logo}>
-          <LogoIcon />
+          <StarWarsIcon />
         </Link>
-
-        <ThemeSwitcher />
 
         <div>
           <Kbd>Ctrl</Kbd> + <Kbd>Shift</Kbd> + <Kbd>S</Kbd>
@@ -47,8 +44,19 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
         px={{ base: 'md', md: 'xl' }}
         mih="100vh"
         component={Stack}>
+        <Space h="xs" />
         {children}
         <Space h="lg" mt="auto" />
+        <Group justify="space-between">
+          <Link
+            href={ExternalUrls.GITHUB_REPO}
+            target="_blank"
+            rel="noreferrer noopener"
+            className={styles.github}>
+            <GitHubIcon />
+          </Link>
+          <ThemeSwitcher />
+        </Group>
       </AppShell.Main>
     </AppShell>
   )

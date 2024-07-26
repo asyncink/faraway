@@ -1,4 +1,10 @@
 export enum Urls {
   HOME = '/',
-  PERSON = '/person'
+  CHARACTER = '/character'
+}
+
+export const getCharacterUrl = (id: string) => `${Urls.CHARACTER}/${id}`
+
+export enum ExternalUrls {
+  GITHUB_REPO = ''
 }
